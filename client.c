@@ -11,9 +11,6 @@
 #define MAX_QUESTION_LEN 50
 #define FLAG_LEN 64
 
-#define STATUS_START 6 // strlen("cs230 ");
-#define STATUS_LEN 6 // strlen("STATUS");
-
 /*
     Arguments:
         char *ip - host ip to connect to.
@@ -147,10 +144,8 @@ int main(int argc, char **argv) {
         buf[len] = '\0';
 
         // Break out of loop if it doesn't contain a problem (thus, must contain the flag)
-        if(strncmp(buf+STATUS_START, "STATUS", STATUS_LEN) != 0)
+        if(!strstr(buf, "STATUS"))
             break;
-        // if(!strstr(buf, "STATUS"))
-        //     break;
 
         // Solve the problem
         if((temp = solve(buf)) == -1) {
