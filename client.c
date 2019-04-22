@@ -158,9 +158,9 @@ int main(int argc, char **argv) {
     // Close file descriptor
     close(fd);
 
-    sscanf(buf, "cs230 %s", flag);
+    sscanf(buf, "cs230 %s BYE\n", flag);
     printf("Flag captured: %s\n", flag);
-    // df65ed32e8c67d962bc96127e1f860a747479da0a8efdf
+    // df65ed32e8c67d962bc96127e1f860a747479da0a8ef15ca3df86f83120f13c0
 
     return 0;
 }
