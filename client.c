@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <netdb.h>
 
-#define MAX_QUESTION_LEN 50
+#define BUFFER_LEN 128
 #define FLAG_LEN 64
 
 /*
@@ -98,7 +98,7 @@ int solve(char *question) {
 
 int main(int argc, char **argv) {
     int fd, len, temp;
-    char buf[MAX_QUESTION_LEN], flag[FLAG_LEN];
+    char buf[BUFFER_LEN], flag[FLAG_LEN];
 
     // Checking for appropriate number of arguments
     if (argc != 4) {
@@ -128,10 +128,8 @@ int main(int argc, char **argv) {
                 }
         }
 
-        memset(buf, 0, sizeof(buf));
-
         // Recieve to buffer
-        switch(recv(fd, buf, MAX_QUESTION_LEN, 0)) {
+        switch(recv(fd, buf, BUFFER_LEN, 0)) {
             case -1:
                 fprintf(stderr, "Error: couldn't recieve from server. errno = %i.\n", errno);
                 exit(errno);
@@ -144,7 +142,7 @@ int main(int argc, char **argv) {
         buf[len] = '\0';
 
         // Break out of loop if it doesn't contain a problem (thus, must contain the flag)
-        if(!strstr(buf, "STATUS"))
+        if(strstr(buf, "BYE"))
             break;
 
         // Solve the problem
@@ -164,5 +162,5 @@ int main(int argc, char **argv) {
     printf("Flag captured: %s\n", flag);
     // df65ed32e8c67d962bc96127e1f860a747479da0a8efdf
 
-    exit(0);
+    return 0;
 }
