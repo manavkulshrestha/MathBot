@@ -22,7 +22,7 @@
         connect.
 
     Returns:
-        int fd - the file descriptor for the server.
+        int fd - the file descriptor for the server connection.
 */
 int open_client_fd(char *ip, int port) {
     int fd;
@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
         len = strlen(buf);
         buf[len] = '\0';
 
-        // Break out of loop if it doesn't contain a problem (thus, must contain the flag)
+        // Break out of loop if it contains "BYE"
         if(strstr(buf, "BYE"))
             break;
 
